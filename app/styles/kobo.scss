@@ -1,0 +1,484 @@
+html {
+  font-family: verdana, sans-serif;
+  line-height: 1.5;
+}
+
+body {
+  background-color: rgb(230, 230, 230);
+}
+
+.show-animation.ng-hide-add,
+.show-animation.ng-hide-remove {
+  -webkit-transition:1s linear all;
+  transition:1s linear all;
+
+  /* remember to add this */
+  display:block!important;
+  opacity:1;
+}
+.show-animation.ng-hide {
+  opacity:0;
+}
+
+
+#header {
+  overflow: hidden;
+  padding: 7px 10px 0 10px;
+  background-color: rgb(26, 26, 26);
+  margin-bottom: 20px;
+  .home {
+    float: left;
+    margin-top: 4px;
+    a {
+      font-size: 24px;
+      color: white;
+      text-decoration: none;
+    }
+  }
+  .langArea {
+    float: right;
+    select {
+      width: 100%;
+    }
+  }
+}
+
+.centerArea {
+  padding: 20px 0 30px 0;
+  text-align: center;
+
+  .title {
+    margin-bottom: 60px;
+    h1 {
+      font-family: Arial,sans-serif;
+      font-size:50px;
+      margin-bottom: 30px;
+    }
+    .description {
+      font-size: 25px;
+    }
+  }
+  .searchArea {
+    input.searchText {
+        width: 40%;
+        height: 20px;
+        margin-top: 8px;
+    }
+  }
+}
+#searchedCmp {
+  #sidebar {
+    .readerArea {
+      display: none;
+    }
+    .genreTitle, .reader {
+      background-color: rgb(26, 26, 26);
+      color: white;
+      font-weight: bold;
+      margin: 10px;
+      padding: 10px;
+      font-size: 15px;
+    }
+    .genre {
+      margin-bottom: 8px;
+      padding: 5px;
+      font-size: 12px;
+    }
+    .genre:hover {
+      background-color: rgb(245, 245, 245);
+    }
+    .active:hover {
+      background-color: rgb(0, 159, 141);
+      color: white;
+    }
+    .remove {
+      text-align: right;
+      float: right;
+      display: block;
+    }
+  }
+
+  #contents {
+    .resultArea {
+      .pageInfoArea {
+        background-color: rgb(26, 26, 26);
+        color: white;
+        margin-bottom: 10px;
+        padding: 10px;
+        font-size: 15px;
+        .pagerInfo {
+          margin-bottom: 8px;
+        }
+        .sortArea {
+          margin-right: 20px;
+          select {
+            height: 21px;
+            width: 195px;
+          }
+        }
+      }
+      .loadingArea {
+        margin: 100px 0 100px 0;
+        text-align: center;
+       }
+      .itemArea {
+        padding: 0 10px 0 10px;
+        float: left;
+        width: 95%;
+        .imageArea {
+          float: left;
+          display: block;
+          margin-left: 5px;
+          margin-right: 5px;
+          margin-bottom: 10px;
+          img {
+            width: 80px;
+          }
+        }
+        .titleArea {
+          .title {
+            font-weight: bold;
+          }
+        }
+      }//itemArea
+      .priceArea {
+        .price {
+          color: #800000;
+        }
+      }
+
+      .unfloat {
+        clear:both;
+        line-height: 0;
+      }
+      .entireRowGrid {
+        width: 100%;
+        float: left;
+      }
+      .rowDividerGrid {
+        margin: 0 0 8px 0;
+        border-top: 1px solid #ddd;
+      }
+    }// resultArea
+  }
+}// searchedCmp
+
+#detailCmp {
+  .upperArea {
+    padding-bottom: 8px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    .imageArea {
+      float: left;
+      display: block;
+      margin-left: 5px;
+      margin-right: 5px;
+      margin-bottom: 10px;
+      img {
+        width: 80px;
+      }
+    }
+    .productArea {
+      margin-left: 20px;
+      margin-bottom: 10px;
+      overflow: auto;
+      zoom: 1;
+      .title {
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+      .author {
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+      .ratingArea {
+        margin-bottom: 6px;
+      }
+      .compareArea {
+        margin-bottom: 10px;
+      }
+      .socialArea {
+        margin-bottom: 8px;
+        .button {
+          font-family: Arial;
+          color: #ffffff;
+          font-size: 13px;
+          padding: 5px 10px;
+          text-decoration: none;
+          text-shadow: 1px 1px 3px #666666;
+        }
+        .twitter {
+          background: #0081ce;
+        }
+        .facebook {
+          background: #2b4170;
+        }
+        .google {
+          background: #c33219;
+        }
+      }
+      .priceArea {
+        margin-bottom: 20px;
+        .price {
+          font-size: 24px;
+          color: rgb(156, 0, 1);
+        }
+      }
+    }
+  }
+  .couponArea {
+    border-bottom: 1px solid #ddd;
+    padding-left: 15px;
+  }
+  .captionArea {
+    font-size: 14px;
+    line-height: initial;
+    border-bottom: 1px solid #ddd;
+    padding: 0 10px;
+  }
+  .buyArea {
+    text-align: center;
+    .buyBtn {
+      text-align: center;
+      padding: 20px 0 20px 0;
+      width: 300px;
+      margin: 10px auto;
+    }
+    i {
+      width: 20px;
+    }
+  }
+}
+
+#wrap {
+  min-height: 100%;
+  overflow: hidden;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px;
+}
+#footer {
+  overflow: hidden;
+  height: 60px;
+  text-align: center;
+  margin-top:50px;
+  padding-top:20px;
+  padding-bottom:20px;
+}
+
+
+// Responsive 768px 
+@media screen and (min-width: 768px) {
+#searchedCmp {
+  #contents {
+    float: right;
+    width: 80%;
+    .resultArea {
+      .pageInfoArea {
+        .sortArea {
+          .pagerInfo {
+            float: left;
+            margin-bottom: 0;
+          }
+          select {
+            float: right;
+            margin-bottom: 0;
+            padding: 0;
+          }
+        }
+      }
+    }
+
+  }
+  #sidebar {
+    .nav {
+      margin-bottom: 15px;
+    }
+    .readerArea {
+      display: block;
+      .reader {
+        margin-bottom: 15px
+      }
+    }
+    margin-right: 20px;
+    width: 16%;
+
+    .genreTitle, .reader {
+      margin: 0;
+    }
+    .advArea {
+      margin-bottom: 15px;
+      img {
+        margin: 0 auto;
+        display: block;
+        text-align: center;
+      }
+      a {
+        text-align: center;
+        display: block;
+      }
+    }
+    .nav-list {
+      padding: 0;
+    }
+  }
+}
+#detailCmp {
+  .upperArea {
+    .imageArea {
+      margin-left: 50px;
+      margin-right: 30px;
+      img {
+        width: 100%;
+      }
+    }
+    .productArea {
+      .title {
+        font-size: 22px;
+      }
+      .author {
+        font-size: 14px;
+      }
+      .ratingArea {
+      }
+      .socialArea {
+        margin-bottom: 20px;
+      }
+    }
+  }
+  .couponArea {
+    padding: 0 50px 0 50px;
+    dl {
+      width:390px;
+    }
+    dt {
+      float:left;
+      width:100px;
+      padding:5px 0 5px 10px;
+      clear:both;
+      font-weight:bold;
+    }
+    dd {
+      width:260px;
+      margin-left:100px;
+      padding:5px 5px 5px 10px;
+    }
+  }
+  .captionArea {
+    padding: 0 50px 0 50px;
+  }
+  .buyArea .buyBtn {
+    margin-left: 50px;
+    margin-right: 10px;
+  }
+  .buyArea {
+    margin-right: 50px;
+    margin-left: 10px;
+  }
+}
+}
+// Responsive 1024px
+@media screen and (min-width: 1024px) {
+#searchedCmp {
+  #contents {
+    float: right;
+    width: 80%;
+    .resultArea {
+      .pageInfoArea {
+        .sortArea {
+          .pagerInfo {
+            float: left;
+            margin-bottom: 0;
+          }
+          select {
+            float: right;
+            margin-bottom: 0;
+            padding: 0;
+          }
+        }
+      }
+      .itemArea {
+        width: 30%;
+        margin-bottom: 15px;
+        .imageArea {
+          float: none;
+          img {
+            width: 150px;
+          }
+        }
+      }
+    }
+
+  }
+  #sidebar {
+    margin-right: 20px;
+    width: 16%;
+
+    .genreTitle {
+      margin: 0;
+    }
+    .nav-list {
+      padding: 0;
+    }
+  }
+}
+#detailCmp {
+  .upperArea{
+    .imageArea {
+      margin-left: 100px;
+      margin-right: 30px;
+      img {
+        width: 150px;
+      }
+    }
+    .productArea {
+      .title {
+        font-size: 20px;
+      }
+      .author {
+        font-size: 16px;
+      }
+      .ratingArea {
+      }
+      .socialArea {
+        margin-bottom: 20px;
+      }
+    }
+  }
+  .couponArea {
+    padding: 0 100px 0 100px;
+  }
+  .captionArea {
+      padding: 0 100px 0 100px;
+      font-size: 18px;
+      line-height: initial;
+  }
+  .buyArea .buyBtn {
+    margin-left: 100px;
+    margin-right: 20px;
+  }
+  .buyArea {
+    margin-right: 100px;
+    margin-left: 20px;
+  }
+}
+}
+
+// Clear Fix
+.cf:before,
+.cf:after {
+    content: " ";
+    display: table;
+}
+
+.cf:after {
+    clear: both;
+}
+
+.cf {
+    *zoom: 1;
+}
+
