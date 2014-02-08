@@ -2,6 +2,7 @@ KoboSearch
 ==========
 
 [![Build Status](https://travis-ci.org/honkimi/KoboBookSearch.png?branch=master)](https://travis-ci.org/honkimi/KoboBookSearch)
+[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 Kobo Books Search App
 
