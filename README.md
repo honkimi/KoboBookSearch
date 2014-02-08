@@ -1,7 +1,7 @@
 KoboSearch
 ==========
 
-[![Build Status](https://travis-ci.org/honkimi/KoboSearch.png?branch=master)](https://travis-ci.org/honkimi/KoboSearch)
+[![Build Status](https://travis-ci.org/honkimi/KoboBookSearch.png?branch=master)](https://travis-ci.org/honkimi/KoboBookSearch)
 
 Kobo Books Search App
 
