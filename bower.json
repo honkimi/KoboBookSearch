@@ -8,7 +8,8 @@
     "es5-shim": "~2.0.8",
     "angular-resource": "1.2.11",
     "angular-animate": "1.2.11",
-    "honkimi-angular-translate": "1.2.11"
+    "honkimi-angular-translate": "1.2.11",
+    "bootstrap-sass": "~2.3.1"
   },
   "devDependencies": {
     "angular-mocks": "1.2.11",

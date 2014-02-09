@@ -1,4 +1,0 @@
-# robotstxt.org
-
-User-agent: *
-Sitemap: http://kobosearch.web.fc2.com/sitemap.xml
