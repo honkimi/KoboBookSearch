@@ -1,6 +1,7 @@
 node_modules
 .tmp
 .sass-cache
+dist
 app/bower_components
 .DS_Store
 .ruby-version
