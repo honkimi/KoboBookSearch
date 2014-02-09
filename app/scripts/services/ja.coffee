@@ -4,7 +4,7 @@ angular.module('koboApp') .constant 'langJa',
   EN: '英語'
   JA: '日本語'
   main:
-    title: 'Kobo 検索'
+    title: 'Kobo 書籍検索'
     subTitle: 'すぐに、そのまま。'
     btnValue: '検索'
   contents:
