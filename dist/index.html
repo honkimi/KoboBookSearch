@@ -1,0 +1,208 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kobo Search</title>
+    <meta name="description" content="Kobo 検索。Kobo Arc, Aura, Glo を買ったらお得なクーポンと一緒に快適な読書ライフを楽しもう。">
+    <meta name="viewport" content="width=device-width , minimum-scale=1, maximum-scale=1">
+    <meta name="google-site-verification" content="WfZBa_0PT-wcXyyTAUqaHuhzcLbszLN1CdcPn1dj-TE">
+    <meta name="msvalidate.01" content="6E68899D1A8D2549CF5DB99324E1D2B0">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="styles/120181b1.main.css" media="all">
+</head>
+<body ng-app="koboApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+      <script src="bower_components/es5-shim/es5-shim.js"></script>
+      <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+<div id="header" class="cf" ng-cloak="">
+  <div class="home">
+    <a href="{{rootUrl}}" target="_self">Kobo Search</a>
+  </div>
+  <div class="langArea">
+    <select ng-model="lang.selected"> 
+      <option value="ja" translate="">JA</option>
+      <option value="en" translate="">EN</option>
+    </select>
+  </div>
+</div><!-- header -->
+<div id="wrap" ng-show="loaded" class="show-animation" ng-controller="MainCtrl" ng-cloak="">
+  <div class="centerArea">
+    <div class="title" ng-show="result.Items == undefined">
+      <h1 translate="">main.title</h1>
+      <p class="description" translate="">main.subTitle</p>
+    </div>
+
+    <form ng-submit="onSearchClicked()" class="searchArea">
+       <input ng-model="search" class="form-control input-lg searchText" type="text">
+       <input type="submit" class="btn btn-primary" value="{{'main.btnValue' | translate}}">
+    </form>
+  </div>
+
+<div ng-switch="" on="searchConds.koboId == undefined">
+  <div id="searchedCmp" class="cf" ng-show="result.Items != undefined" ng-switch-when="true">
+
+    <div id="contents">
+      <div class="resultArea" ng-switch="" on="result.count > 0">
+        <div ng-switch-when="true">
+          <div class="pageInfoArea clearfix">
+            <div class="sortArea">
+              <div class="pagerInfo" translate-values="{count: result.count, first: result.first, last : result.last }" translate="">contents.pager</div>
+              <select ng-model="searchConds.sort" ng-change="sortSelected()">
+                <option ng-value="sort.value" ng-selected="sort.value == searchConds.sort" ng-repeat="sort in sorts">{{sort.name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="loadingArea" ng-show="searching">
+            <img align="center" src="images/4239ba80.loading.gif">
+          </div>
+          <div ng-hide="searching" class="itemArea clearfix" ng-repeat-start="item in result.Items">
+            <div class="imageArea">
+              <a class="image" ng-href="/?{{item.Item.itemNumber}}_{{item.Item.title | encode}}" target="_blank"> <img ng-src="{{item.Item.largeImageUrl}}" alt="{{item.Item.title}}"></a>
+            </div>
+            <div class="titleArea">
+              <a ng-href="/?{{item.Item.itemNumber}}_{{item.Item.title | encode}}" class="title" target="_blank">{{item.Item.title}}</a>
+              {{item.Item.author}} ({{item.Item.salesDate}})
+            </div>
+            <div class="priceArea">
+              <span class="price" translate-values="{price:{{item.Item.itemPrice}}}" translate="">contents.yen</span>
+            </div>
+            <div class="ratingArea" ng-controller="RateCtrl">
+              <span ng-repeat="rate in getNumber(number) track by $index">
+                <span ng-switch="" on="shouldStared($index,item.Item.reviewAverage)">
+                  <i class="icon-star" ng-switch-when="true"></i>
+                  <i class="icon-star-empty" ng-switch-when="false"></i>
+                </span>
+              </span>
+              <span class="reviewCount">({{item.Item.reviewCount}})</span>
+            </div>
+          </div><!-- ng repeat -->
+          <div ng-hide="searching" ng-repeat-end="" ng-switch="" on="$index % 3 == 2">
+            <span ng-switch-when="true">
+              <br class="unfloat">
+              <div class="rowDividerGrid entireRowGrid"></div>
+            </span>
+         </div>
+          <div class="pagerArea">
+            <ul class="pager">
+              <li><i class="icon-left"></i><a ng-click="onPrevClicked()" ng-show="searchConds.page > 1" translate=""> contents.prev </a></li>
+              <li><a ng-click="onNextClicked()" ng-show="hasNext()" translate="">contents.next</a><i class="icon-right"></i></li>
+            </ul>
+          </div>
+        </div>
+        <div ng-switch-when="false">
+          <div class="alert" translate="">contents.none</div>
+        </div><!-- ng-switch -->
+      </div><!-- resultArea -->
+    </div><!-- contents -->
+    <div id="sidebar">
+      <div class="genreTitle" translate="">contents.genre</div>
+      <ul class="nav nav-list">
+        <span ng-switch="" on="genre.current.koboGenreId == searchConds.genreId" ng-repeat="genre in genres">
+          <li class="genre" ng-switch-when="false" ng-click="onGenreSearchClicked(genre.current.koboGenreId, genre.current.koboGenreName)">{{genre.current.koboGenreName}}</li>
+          <li class="genre active" ng-switch-when="true" ng-click="genreClearSearchClicked()"><i class="remove icon-remove"></i>{{genre.current.koboGenreName}} </li>
+        </span>
+      </ul>
+      <div class="readerArea">
+        <div class="reader" translate="">contents.reader</div>
+        <div class="advArea">
+          <a href="http://hb.afl.rakuten.co.jp/hgc/1220ff4a.54f524d4.1220ff4b.b1e22d4f/?pc=http%3a%2f%2fitem.rakuten.co.jp%2frakuten24-kobo%2fi001281088016%2f%3fscid%3daf_link_tbl&amp;m=http%3a%2f%2fm.rakuten.co.jp%2frakuten24-kobo%2fi%2f10000077%2f" target="_blank">
+            <img src="http://hbb.afl.rakuten.co.jp/hgb/?pc=http%3a%2f%2fthumbnail.image.rakuten.co.jp%2f%400_mall%2frakuten24-kobo%2fcabinet%2fitem02%2fimg016.jpg%3f_ex%3d128x128&amp;m=http%3a%2f%2fthumbnail.image.rakuten.co.jp%2f%400_mall%2frakuten24-kobo%2fcabinet%2fitem02%2fimg016.jpg%3f_ex%3d80x80" alt="電子ブック 楽天Kobo電子ブックリーダーKobo Glo（コボ グロー）★目に優しいフロントライト内...">
+          </a>
+          <a href="http://hb.afl.rakuten.co.jp/hgc/1220ff4a.54f524d4.1220ff4b.b1e22d4f/?pc=http%3a%2f%2fitem.rakuten.co.jp%2frakuten24-kobo%2fi001281088016%2f%3fscid%3daf_link_tbl&amp;m=http%3a%2f%2fm.rakuten.co.jp%2frakuten24-kobo%2fi%2f10000077%2f" target="_blank">Kobo電子ブックリーダーKobo Glo</a>
+        </div>
+        <div class="advArea">
+          <a href="http://hb.afl.rakuten.co.jp/hgc/1220ff4a.54f524d4.1220ff4b.b1e22d4f/?pc=http%3a%2f%2fitem.rakuten.co.jp%2frakuten24-kobo%2fi001281088080%2f%3fscid%3daf_link_tbl&amp;m=http%3a%2f%2fm.rakuten.co.jp%2frakuten24-kobo%2fi%2f10000262%2f" target="_blank">
+            <img src="http://hbb.afl.rakuten.co.jp/hgb/?pc=http%3a%2f%2fthumbnail.image.rakuten.co.jp%2f%400_mall%2frakuten24-kobo%2fcabinet%2fitem02%2fau_item_01c.jpg%3f_ex%3d128x128&amp;m=http%3a%2f%2fthumbnail.image.rakuten.co.jp%2f%400_mall%2frakuten24-kobo%2fcabinet%2fitem02%2fau_item_01c.jpg%3f_ex%3d80x80" alt="電子ブック 楽天Kobo電子ブックリーダーKobo Aura【メーカー保証1年付】【楽ギフ_包装】【送料...">
+          </a>
+          <a href="http://hb.afl.rakuten.co.jp/hgc/1220ff4a.54f524d4.1220ff4b.b1e22d4f/?pc=http%3a%2f%2fitem.rakuten.co.jp%2frakuten24-kobo%2fi001281088080%2f%3fscid%3daf_link_tbl&amp;m=http%3a%2f%2fm.rakuten.co.jp%2frakuten24-kobo%2fi%2f10000262%2f" target="_blank">Kobo電子ブックリーダーKobo Aura</a>
+        </div>
+        <div class="advArea">
+          <a href="http://hb.afl.rakuten.co.jp/hgc/0fee1b77.df539cc4.0fee1b78.ec4b9fb1/?pc=http%3a%2f%2fitem.rakuten.co.jp%2fbook%2f12610048%2f%3fscid%3daf_link_tbl&amp;m=http%3a%2f%2fm.rakuten.co.jp%2fbook%2fi%2f16753534%2f" target="_blank">
+            <img src="http://hbb.afl.rakuten.co.jp/hgb/?pc=http%3a%2f%2fthumbnail.image.rakuten.co.jp%2f%400_mall%2fbook%2fcabinet%2f3317%2f4560470083317.jpg%3f_ex%3d128x128&amp;m=http%3a%2f%2fthumbnail.image.rakuten.co.jp%2f%400_mall%2fbook%2fcabinet%2f3317%2f4560470083317.jpg%3f_ex%3d80x80" alt="【送料無料】楽天サービスがとことん楽しめるタブレットKobo Arc 7HD 16GB （ブラック)">
+          </a>
+          <a href="http://hb.afl.rakuten.co.jp/hgc/0fee1b77.df539cc4.0fee1b78.ec4b9fb1/?pc=http%3a%2f%2fitem.rakuten.co.jp%2fbook%2f12610048%2f%3fscid%3daf_link_tbl&amp;m=http%3a%2f%2fm.rakuten.co.jp%2fbook%2fi%2f16753534%2f" target="_blank">Kobo電子ブックリーダーKobo Arc</a>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- row-fluid -->
+
+  <div id="detailCmp" class="clearfix" ng-show="result.Items != undefined" ng-switch-when="false"><!-- item detail -->
+    <div class="upperArea clearfix">
+      <div class="imageArea">
+        <a ng-href="{{result.Items[0].Item.affiliateUrl}}">
+          <img class="image" ng-src="{{result.Items[0].Item.largeImageUrl}}" alt="{{result.Items[0].Item.title}}">
+        </a>
+      </div>
+      <div class="productArea clearfix">
+        <div class="title">
+          <a ng-href="{{result.Items[0].Item.affiliateUrl}}">{{result.Items[0].Item.title}} - {{result.Items[0].Item.subTitle}}</a>
+        </div>
+        <div class="author" translate-values="{author:result.Items[0].Item.author}" translate="">detail.author</div>
+        <div class="ratingArea" ng-controller="RateCtrl">
+          <span ng-repeat="rate in getNumber(number) track by $index">
+            <span ng-switch="" on="shouldStared($index,result.Items[0].Item.reviewAverage)">
+              <i class="icon-star" ng-switch-when="true"></i>
+              <i class="icon-star-empty" ng-switch-when="false"></i>
+            </span>
+          </span>
+          <span class="reviewCount">({{result.Items[0].Item.reviewCount}})</span>
+        </div>
+        <div class="compareArea">
+          <a ng-href="http://www.amazon.co.jp/s/ref=nb_sb_noss_2?url=search-alias%3Dstripbooks&field-keywords={{result.Items[0].Item.title}} {{result.Items[0].Item.subTitle}}">
+            <i class="icon-search"></i><span translate="">detail.compare</span>
+          </a>
+        </div>
+        <div class="priceArea">
+          <span class="priceExp" translate="">detail.price</span>
+            <span class="price">{{result.Items[0].Item.itemPrice}}<span translate="">contents.yen</span></span>
+        </div>
+        <div class="socialArea">
+          <a ng-href="http://www.facebook.com/sharer.php?u={{minUrl}}" class="button facebook" target="_blank">Facebook</a>
+          <a ng-href="http://twitter.com/home?status={{result.Items[0].Item.title}} - {{minUrl}} %23kobo" title="{{'detail.twitter' | translate}}" class="button twitter" target="_blank">Twitter</a>
+          <a ng-href="https://plus.google.com/share?url={{minUrl}}" class="button google" target="_blank">Google+</a>
+        </div>
+      </div>
+    </div>
+    <div class="couponArea" ng-controller="CouponCtrl">
+      <a class="btn btn-small" ng-show="!coupons" ng-click="onCouponShowClick()" href="javascript:void(0)"><i class="icon-tag"></i><span translate="">contents.coupon</span></a>
+      <a class="btn btn-small" ng-show="coupons" ng-click="onCouponCloseClick()" href="javascript:void(0)"><i class="icon-remove"></i><span translate="">contents.close</span></a>
+      <dl>
+        <dt ng-repeat-start="(k,v) in coupons">{{k}} Off</dt>
+        <dd ng-repeat-end="" ng-repeat="c in v">{{c}}</dd>
+      </dl>
+    </div>
+
+    <div class="captionArea">
+      <p>{{result.Items[0].Item.itemCaption}}</p>
+    </div>
+    <div class="buyArea">
+      <a class="btn btn-primary buyBtn" ng-href="{{result.Items[0].Item.affiliateUrl}}"><i class="icon-shopping-cart icon-white"></i><span translate="">detail.buy</span></a>
+    </div>
+  </div><!-- item detail -->
+</div><!-- ng-switch -->
+<div id="footer" ng-cloak="">
+  <p class="text-muted">Copyright &copy; <a href="https://twitter.com/kimihom">@kimihom</a> All Rights Reserved.</p>
+</div>
+</div><!-- MainCtrl -->
+    <script src="bower_components/angular/angular.js"></script>
+
+        <script src="scripts/d41d8cd9.plugins.js"></script>
+
+        <script src="scripts/5af0d16a.modules.js"></script>
+
+        <script src="scripts/617ef386.scripts.js"></script>
+</body>
+</html>
