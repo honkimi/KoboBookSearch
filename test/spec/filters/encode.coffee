@@ -11,3 +11,6 @@ describe 'Filter: encode', () ->
     encode = $filter 'encode'
 
   it 'should return the input prefixed with "encode filter:"', () ->
+    expect(encode(' test ')).toBe('_test_')
+
+

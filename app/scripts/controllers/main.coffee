@@ -36,7 +36,6 @@ angular.module('koboApp').controller 'MainCtrl', ($scope, $anchorScroll, $locati
     $anchorScroll()
     kobo.getBooks $scope.search, $scope.searchConds.page, $scope.searchConds.genreId, $scope.searchConds.sort, (response) ->
       $scope.result = response
-      console.log(response)
       filteredGenres = kobo.filterGenre(response)
       $scope.genres = []
       angular.forEach filteredGenres, (value) ->

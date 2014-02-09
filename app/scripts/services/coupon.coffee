@@ -10,7 +10,6 @@ angular.module('koboApp').factory 'coupon', ($http, rwsConf) ->
   {
     fetch: (callback) ->
       $http.jsonp(baseUrl + apiKobo + apiKey + clbck, {cache: true}).success (response) ->
-        console.log response
         callback response
     fetchJp: (callback) ->
       result = {}
@@ -28,6 +27,5 @@ angular.module('koboApp').factory 'coupon', ($http, rwsConf) ->
         catch e
           result={"failed.. contact to admin." : ""}
         finally
-          console.log result
           callback result
   }

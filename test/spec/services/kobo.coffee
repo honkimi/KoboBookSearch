@@ -51,5 +51,6 @@ describe 'Service: kobo', () ->
     result = kobo.getSortNames()
     expect(result).not.toBeNull()
     expect(result.length).toBeGreaterThan(4)
+    expect(result[0].value).toBe('standard')
 
 

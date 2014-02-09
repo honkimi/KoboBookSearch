@@ -11,12 +11,12 @@ angular.module('koboApp') .constant 'rwsConf',
   defaultSort: 'standard'
   defaultGenre: 101
   sort: [
-    'sort.relate'
-    'sort.releaseNew'
-    'sort.reviewCount'
-    'sort.reviewHigh'
-    'sort.itemPriceRow'
-    'sort.itemPriceHigh'
+    {'name': 'sort.relate', 'value': 'standard'}
+    {'name': 'sort.releaseNew', 'value': '-releaseDate'}
+    {'name': 'sort.reviewCount', 'value': 'reviewCount'}
+    {'name': 'sort.reviewHigh', 'value': 'reviewAverage'}
+    {'name': 'sort.itemPriceRow', 'value': '+itemPrice'}
+    {'name': 'sort.itemPriceHigh', 'value': '-itemPrice'}
   ]
 
 
